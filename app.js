@@ -14,9 +14,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 // view engine
-app.set("views", dirname + "/views");
+app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
-app.use(express.static(dirname + "public"));
+app.use(express.static(__dirname + "public"));
 
 // database connection
 
