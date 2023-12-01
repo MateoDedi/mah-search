@@ -5,7 +5,7 @@ const dbURI = process.env.MONGODB_URI || process.env.DB_URI;
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
-
+//gg
 const app = express();
 
 // middleware
