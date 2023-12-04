@@ -10,7 +10,7 @@
     <input type="text" name="lastname" required>
 
     <label for="github">GitHub</label>
-    <input type="text" name="github" required>
+    <input type="text" name="github">
 
     <label for="profilepicture">Profile picture</label>
     <input type="file" name="profilepicture">
@@ -37,9 +37,9 @@
 
 <script>
   const form = document.querySelector('form');
-  const emailError = document.querySelector('.email.error');
-  const passwordError = document.querySelector('.password.error');
-  const confirmPasswordError = document.querySelector('.confirmpassword.error');
+  const emailError = form.querySelector('.email.error');
+  const passwordError = form.querySelector('.password.error');
+  const confirmpasswordError = form.querySelector('.confirmpassword.error');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@
     // reset errors
     emailError.textContent = '';
     passwordError.textContent = '';
-    confirmpassword.textContent= '';
+    confirmpasswordError.textContent= '';
 
     // get values
     const email = form.email.value;
@@ -62,19 +62,10 @@
     if(password !== confirmpassword) {
         confirmPasswordError.textContent = 'Passwords do not match';
     } else {
-      let infoUsers = {
-        firstname, 
-        lastname, 
-        github, 
-        profilepicture, 
-        cv, 
-        email, 
-        password
-      }
         try {
         const res = await fetch('/signup', { 
           method: 'POST', 
-          body: JSON.stringify({ infoUsers }),
+          body: JSON.stringify({ firstname, lastname, github, profilepicture, cv, email, password }),
           headers: {'Content-Type': 'application/json'}
         });
         const data = await res.json();
