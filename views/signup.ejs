@@ -1,14 +1,36 @@
 <%- include('partials/header'); -%>
 
-<form action="/signup">
-  <h2>Sign up</h2>
-  <label for="email">Email</label>
-  <input type="text" name="email" required />
-  <div class="email error"></div>
-  <label for="password">Password</label>
-  <input type="password" name="password" required />
-  <div class="password error"></div>
-  <button>Sign up</button>
+<form>
+  <h2>Register</h2>
+    
+    <label for="firstname">First name</label>
+    <input type="text" name="firstname" required>
+
+    <label for="lastname">Last name</label>
+    <input type="text" name="lastname" required>
+
+    <label for="github">GitHub</label>
+    <input type="text" name="github" required>
+
+    <label for="profilepicture">Profile picture</label>
+    <input type="file" name="profilepicture">
+
+    <label for="cv">Curriculum Vitae</label>
+    <input type="file" name="cv">
+
+    <label for="email">Email</label>
+    <input type="text" name="email" required>
+    <div class="email error"></div>
+    
+    <label for="password">Password</label>
+    <input type="password" name="password" required>
+    <div class="password error"></div>
+
+    <label for="confirmpassword">Confirm password</label>
+    <input type="password" name="confirmpassword" required>
+    <div class="confirmpassword error"></div>
+
+    <button>Register</button>
 </form>
 
 <%- include('partials/footer'); -%>
@@ -17,6 +39,7 @@
   const form = document.querySelector('form');
   const emailError = document.querySelector('.email.error');
   const passwordError = document.querySelector('.password.error');
+  const confirmPasswordError = document.querySelector('.confirmpassword.error');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -24,31 +47,37 @@
     // reset errors
     emailError.textContent = '';
     passwordError.textContent = '';
+    confirmpassword.textContent= '';
 
     // get values
     const email = form.email.value;
     const password = form.password.value;
+    const confirmpassword = form.confirmpassword.value;
+    
+    if(password !== confirmpassword) {
+        confirmPasswordError.textContent = 'Passwords do not match';
+    } else {
+        try {
+        const res = await fetch('/signup', { 
+          method: 'POST', 
+          body: JSON.stringify({ email, password }),
+          headers: {'Content-Type': 'application/json'}
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.errors) {
+          emailError.textContent = data.errors.email;
+          passwordError.textContent = data.errors.password;
+        }
+        if (data.user) {
+          location.assign('/');
+        }
 
-    try {
-      const res = await fetch('/signup', { 
-        method: 'POST', 
-        body: JSON.stringify({ email, password }),
-        headers: {'Content-Type': 'application/json'}
-      });
-      const data = await res.json();
-      console.log(data);
-      if (data.errors) {
-        emailError.textContent = data.errors.email;
-        passwordError.textContent = data.errors.password;
-      }
-      if (data.user) {
-        location.assign('/');
-      }
-
-    }
-    catch (err) {
-      console.log(err);
-    }
+        }
+        catch (err) {
+          console.log(err);
+        }
+        }
 
   });
 </script>
