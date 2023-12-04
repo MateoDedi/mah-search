@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
     companies:{
         job_title: {
             type: String,
-            required: [true, 'Please enter a job title'],
+            // required: [true, 'Please enter a job title'],
             lowercase: true,
             },
         url_website: {
