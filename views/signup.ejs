@@ -53,14 +53,28 @@
     const email = form.email.value;
     const password = form.password.value;
     const confirmpassword = form.confirmpassword.value;
+    const firstname = form.firstname.value;
+    const lastname = form.lastname.value;
+    const github = form.github.value;
+    const profilepicture = form.profilepicture.value;
+    const cv = form.cv.value;
     
     if(password !== confirmpassword) {
         confirmPasswordError.textContent = 'Passwords do not match';
     } else {
+      let infoUsers = {
+        firstname, 
+        lastname, 
+        github, 
+        profilepicture, 
+        cv, 
+        email, 
+        password
+      }
         try {
         const res = await fetch('/signup', { 
           method: 'POST', 
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ infoUsers }),
           headers: {'Content-Type': 'application/json'}
         });
         const data = await res.json();
