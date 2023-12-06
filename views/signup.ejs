@@ -1,7 +1,7 @@
 <%- include('partials/header'); -%>
 
 <form>
-  <h2>Register</h2>
+    <h2>Register</h2>
     
     <label for="firstname">First name</label>
     <input type="text" name="firstname" required>
@@ -9,19 +9,19 @@
     <label for="lastname">Last name</label>
     <input type="text" name="lastname" required>
 
-    <label for="github">GitHub</label>
-    <input type="text" name="github">
-
-    <label for="profilepicture">Profile picture</label>
-    <input type="file" name="profilepicture">
-
-    <label for="cv">Curriculum Vitae</label>
-    <input type="file" name="cv">
-
     <label for="email">Email</label>
     <input type="text" name="email" required>
     <div class="email error"></div>
-    
+
+    <label for="github">GitHub</label>
+    <input type="text" name="github">
+
+    <label for="profilpicture">Profile picture</label>
+    <input type="file" name="profilpicture">
+
+    <label for="cv">CV (pdf)</label>
+    <input type="file" name="cv">
+
     <label for="password">Password</label>
     <input type="password" name="password" required>
     <div class="password error"></div>
@@ -37,9 +37,9 @@
 
 <script>
   const form = document.querySelector('form');
-  const emailError = form.querySelector('.email.error');
-  const passwordError = form.querySelector('.password.error');
-  const confirmpasswordError = form.querySelector('.confirmpassword.error');
+  const emailError = document.querySelector('.email.error');
+  const passwordError = document.querySelector('.password.error');
+  const confirmPasswordError = document.querySelector('.confirmpassword.error');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -47,42 +47,53 @@
     // reset errors
     emailError.textContent = '';
     passwordError.textContent = '';
-    confirmpasswordError.textContent= '';
+    confirmPasswordError.textContent = '';
 
     // get values
     const email = form.email.value;
     const password = form.password.value;
     const confirmpassword = form.confirmpassword.value;
-    const firstname = form.firstname.value;
-    const lastname = form.lastname.value;
-    const github = form.github.value;
-    const profilepicture = form.profilepicture.value;
-    const cv = form.cv.value;
-    
-    if(password !== confirmpassword) {
-        confirmPasswordError.textContent = 'Passwords do not match';
-    } else {
-        try {
-        const res = await fetch('/signup', { 
-          method: 'POST', 
-          body: JSON.stringify({ firstname, lastname, github, profilepicture, cv, email, password }),
-          headers: {'Content-Type': 'application/json'}
-        });
-        const data = await res.json();
-        console.log(data);
-        if (data.errors) {
-          emailError.textContent = data.errors.email;
-          passwordError.textContent = data.errors.password;
-        }
-        if (data.user) {
-          location.assign('/');
-        }
 
-        }
-        catch (err) {
-          console.log(err);
-        }
-        }
+    const firstname = form.firstname.value
+    const lastname = form.lastname.value
+    const github = form.github.value
+    const profilpicture = form.profilpicture.value
+    const cv = form.cv.value
+
+    if(password !== confirmpassword){
+      confirmPasswordError.textContent = 'Passwords do not match';
+    }else{
+      let infoUsers = {
+        firstname, 
+        lastname, 
+        email, 
+        password,
+        linkedin: "",
+        github,
+        profilpicture, 
+        cv
+      }
+      try {
+      const res = await fetch('/signup', { 
+        method: 'POST', 
+        body: JSON.stringify(infoUsers),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.errors) {
+        emailError.textContent = data.errors.email;
+        passwordError.textContent = data.errors.password;
+      }
+      if (data.user) {
+        location.assign('/');
+      }
+
+    }
+    catch (err) {
+      console.log(err);
+    }
+    }
 
   });
 </script>
