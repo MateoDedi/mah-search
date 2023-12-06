@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
-const userSchema = require('./configUser');
-
-
+const userSchema = require('./ConfigUsers');
 
 // fire a function before doc saved to db
 userSchema.pre('save', async function(next) {
@@ -26,6 +24,6 @@ userSchema.statics.login = async function(email, password) {
   throw Error('incorrect email');
 };
 
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('users', userSchema);
 
 module.exports = User;
