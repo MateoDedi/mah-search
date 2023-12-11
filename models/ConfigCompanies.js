@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 
 const companiesSchema = new mongoose.Schema({
-    id_user: {type: String},
+    id_user: { type: String },
     jobTitle: {
         type: String,
         required: [true, 'Please enter your first name'],
@@ -13,23 +13,22 @@ const companiesSchema = new mongoose.Schema({
         required: [true, 'Please enter your last name'],
         lowercase: true
     },
-    employerContact: [{
-        nameContact: {
-            type: String,
-            lowercase: true
-        },
-        emailContact: {
-            type: String,
-            lowercase: true,
-            validate: [isEmail, 'Please enter a valid email'],
-        },
-        phone: {type: String},
-        Address: {type: String}
+    nameContact: {
+        type: String,
+        lowercase: true
+    },
+    emailContact: {
+        type: String,
+        required: false,
+        lowercase: true,
+        validate: [isEmail, 'Please enter a valid email'],
+    },
+    phone: { type: String },
+    Address: { type: String },
 
-    }],
-    origin: [{type: String}],
-    status: [{type: String}],
-    comments: {content: String},
+    origin: [{ type: String }],
+    statusCompanie: [{ type: String }],
+    comments: { type: String },
 
 });
 

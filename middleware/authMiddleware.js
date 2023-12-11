@@ -12,6 +12,7 @@ const requireAuth = (req, res, next) => {
         res.redirect('/login');
       } else {
         console.log(decodedToken);
+        // res.testId = decodedToken
         next();
       }
     });
@@ -23,6 +24,7 @@ const requireAuth = (req, res, next) => {
 // check current user
 const checkUser = (req, res, next) => {
   const token = req.cookies.jwt;
+  // console.log(token);
   if (token) {
     jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
       if (err) {
@@ -30,8 +32,11 @@ const checkUser = (req, res, next) => {
         next();
       } else {
         let user = await User.findById(decodedToken.id);
+        // console.log(user);
         res.locals.user = user;
+        // console.log(user);
         next();
+        return
       }
     });
   } else {
