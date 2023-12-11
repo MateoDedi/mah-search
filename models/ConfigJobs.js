@@ -5,7 +5,12 @@ const jobSchema = new mongoose.Schema({
     id_user: { type: String },
     jobTitle: {
         type: String,
-        required: [true, 'Please enter your first name'],
+        required: [false, 'Please enter your first name'],
+        lowercase: true
+    },
+    company: {
+        type: String,
+        required: [true, 'Please enter a name of the company'],
         lowercase: true
     },
     website: {

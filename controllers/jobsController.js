@@ -3,6 +3,7 @@ const Job = require("../models/ConfigJobs")
 const User = require("../models/User");
 
 
+
 // handle errors
 const handleErrors = (err) => {
     let errors = { email: ''};
@@ -52,15 +53,6 @@ module.exports.createJob = async (req, res) => {
 }
 
 
-// module.exports.listJobs = async (req, res) => {
-
-//     // const dataEmail = await res.json()
-//     // let i = new ObjectId(dataEmail.locals.user._id)
-//     // i = JSON.stringify(i)
-//     // console.log(i);
-//     res.end()
-// }
-
 module.exports.listJobs = async (req, res) => {
     try {
         const userId = res.locals.user._id;
@@ -70,3 +62,13 @@ module.exports.listJobs = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 }
+
+module.exports.JobItem = async (req, res) => {
+    const jobId = req.params.id; 
+    try {
+        const job = await Job.findById(jobId);
+        res.status(200).json(job);
+    } catch (err) {
+        res.status(500).json({ error: "Job not found" });
+    }
+};
