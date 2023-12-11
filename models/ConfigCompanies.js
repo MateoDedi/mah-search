@@ -20,6 +20,7 @@ const companiesSchema = new mongoose.Schema({
         },
         emailContact: {
             type: String,
+            required: false,
             lowercase: true,
             validate: [isEmail, 'Please enter a valid email'],
         },
