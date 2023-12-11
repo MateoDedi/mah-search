@@ -1,0 +1,30 @@
+
+<%- include('partials/header'); -%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My profile</title>
+    <link rel="stylesheet" href="/mah-search/public/styles.css">
+</head>
+<body>
+    <div class="myprofile">
+    <h1>My profile</h1>
+    <div>
+        <img src="<%= user.profilpicture %>" alt="Profile picture">
+        <p>Full name: <%= user.firstname %> <%= user.lastname %></p>
+        <p>Email: <%= user.email %></p>
+        <p>Github: <%= user.github %></p>
+        <!-- Add more user information here -->
+    </div>
+    <div>
+        <a class="update">Update User</a>
+        <!-- Add form to update user information here -->
+    </div>
+    <div>
+        <a class="delete">Delete User</a>
+        <!-- Add form to delete user here -->
+    </div>
+</div>
+</body>
+</html>
+<%- include('partials/footer'); -%>

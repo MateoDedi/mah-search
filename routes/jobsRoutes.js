@@ -10,4 +10,8 @@ router.get('/create-job', (req, res) => res.render('createJob'))
 router.get('/job/:id', jobsController.JobItem);
 router.put('/job/:id', jobsController.JobUpdate);
 router.delete('/job/:id', jobsController.JobDelete);
+router.get('/user-profile', (req, res) =>  res.render('userProfile'));
+
+
+
 module.exports = router;
