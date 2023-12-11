@@ -26,6 +26,7 @@ module.exports.createJob = async (req, res) => {
     let jobInfos = {
         jobTitle,
         website,
+        company,
         nameContact,
         emailContact,
         phone,
@@ -72,3 +73,35 @@ module.exports.JobItem = async (req, res) => {
         res.status(500).json({ error: "Job not found" });
     }
 };
+
+module.exports.JobUpdate = async (req, res) => {
+    const jobId = req.params.id;
+    const jobInfos = {
+        jobTitle,
+        website,
+        company,
+        nameContact,
+        emailContact,
+        phone,
+        Address,
+        origin,
+        statusCompanie,
+        comments
+    } = req.body;
+    try {
+        const job = await Job.findByIdAndUpdate(jobId, jobInfos);
+        res.status(200).json(job);
+    } catch (err) {
+        res.status(500).json({ error: "Job not found" });
+    }
+}
+
+module.exports.JobDelete = async (req, res) => {
+    const jobId = req.params.id;
+    try {
+        const job = await Job.findByIdAndDelete(jobId);
+        res.status(200).json(job);
+    } catch (err) {
+        res.status(500).json({ error: "Job not found" });
+    }
+}
