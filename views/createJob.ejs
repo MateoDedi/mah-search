@@ -11,6 +11,10 @@
     <input type="text" name="website" required>
     <div class="website error"></div>
 
+    <label for="company">company</label>
+    <input type="text" name="company" required>
+    <div class="company error"></div>
+
     <h3>Employer's contact</h3>
 
     <label for="name">Name</label>
@@ -73,6 +77,7 @@
         // get values
         const jobTitle = form.jobTitle.value;
         const website = form.website.value;
+        const company = form.company.value;
         const nameContact = form.name.value;
         const emailContact = form.email.value;
         const phone = form.phone.value;
