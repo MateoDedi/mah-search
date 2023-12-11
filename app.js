@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3001;
 // const dbURI = process.env.MONGODB_URI || process.env.DB_URI
 const dbURI = process.env.DB_URI
 const authRoutes = require('./routes/authRoutes');
-const companieRouter = require('./routes/companiesRoutes');
+const jobsRouter = require('./routes/jobsRoutes');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
@@ -30,8 +30,7 @@ mongoose.connect(dbURI)
 app.get('*', checkUser);
 app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
-app.get('/add-companie', requireAuth, (req, res) => res.render('addCompanie'));
 app.use(authRoutes);
-app.use(checkUser, companieRouter);
+app.use(checkUser, jobsRouter);
 
 module.exports = app

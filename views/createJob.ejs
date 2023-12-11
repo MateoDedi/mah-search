@@ -88,7 +88,7 @@
           originError.textContent = 'Please fill out the origin';
           statusError.textContent = 'Please fill out the status';
         } else {
-          let infoCompanies = {
+          let infoJob = {
             jobTitle,
             website,
             nameContact,
@@ -99,10 +99,10 @@
             statusCompanie,
             comments
           }
-          console.log(infoCompanies);
+          console.log(infoJob);
 
           try {
-            const res = await fetch('/add-companie', {
+            const res = await fetch('/create-job', {
               method: 'POST',
               body: JSON.stringify(infoCompanies),
               headers: { 'Content-Type': 'application/json' }

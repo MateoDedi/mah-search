@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 
-const companiesSchema = new mongoose.Schema({
+const jobSchema = new mongoose.Schema({
     id_user: { type: String },
     jobTitle: {
         type: String,
@@ -27,11 +27,11 @@ const companiesSchema = new mongoose.Schema({
     Address: { type: String },
 
     origin: [{ type: String }],
-    statusCompanie: [{ type: String }],
+    statusJob: [{ type: String }],
     comments: { type: String },
 
 });
 
-const Companies = mongoose.model('companies', companiesSchema);
+const Job = mongoose.model('jobs', jobSchema);
 
-module.exports = Companies;
+module.exports = Job;

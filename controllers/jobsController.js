@@ -1,6 +1,7 @@
 const { ObjectId } = require("mongodb");
-const Companies = require("../models/ConfigCompanies")
+const Job = require("../models/ConfigJobs")
 const User = require("../models/User");
+
 
 // handle errors
 const handleErrors = (err) => {
@@ -15,13 +16,13 @@ const handleErrors = (err) => {
 }
 
 
-module.exports.add_companie = async (req, res) => {
+module.exports.createJob = async (req, res) => {
     let i = res.locals.user._id
     // const obj = new ObjectId()
     // const idString = obj.toHexString(i)
     // console.log(idString);
 
-    let companieInfos = {
+    let jobInfos = {
         jobTitle,
         website,
         nameContact,
@@ -33,11 +34,11 @@ module.exports.add_companie = async (req, res) => {
         comments
     } = req.body;
 
-    companieInfos.id_user = i
+    jobInfos.id_user = i
 
     // console.log(companieInfos);
 
-    const companie = await Companies.create(companieInfos)
+    const job = await Job.create(jobInfos)
     .then(resultat => {
         console.log(resultat)
         res.status(201).json({resultat})
@@ -51,10 +52,21 @@ module.exports.add_companie = async (req, res) => {
 }
 
 
-module.exports.list_companies = async (req, res) => {
-    // const dataEmail = await res.json()
-    // let i = new ObjectId(dataEmail.locals.user._id)
-    // i = JSON.stringify(i)
-    // console.log(i);
-    res.end()
+// module.exports.listJobs = async (req, res) => {
+
+//     // const dataEmail = await res.json()
+//     // let i = new ObjectId(dataEmail.locals.user._id)
+//     // i = JSON.stringify(i)
+//     // console.log(i);
+//     res.end()
+// }
+
+module.exports.listJobs = async (req, res) => {
+    try {
+        const userId = res.locals.user._id;
+        const jobs = await Job.find({ id_user: userId });
+        res.status(200).json(jobs);
+    } catch (err) {
+        res.status(500).json({ error: "Internal server error" });
+    }
 }
