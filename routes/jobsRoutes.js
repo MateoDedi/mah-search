@@ -4,14 +4,11 @@ const jobsController = require('../controllers/jobsController')
 
 const router = Router();
 
-router.post('/create-job', jobsController.createJob)
-router.get('/list-jobs', jobsController.listJobs)
-router.get('/create-job', (req, res) => res.render('createJob'))
+router.post('/create-job', jobsController.createJob);
+router.get('/create-job', (req, res) => res.render('createJob'));
+router.get('/list-jobs', jobsController.listJobs);
 router.get('/job/:id', jobsController.JobItem);
 router.put('/job/:id', jobsController.JobUpdate);
 router.delete('/job/:id', jobsController.JobDelete);
-router.get('/user-profile', (req, res) =>  res.render('userProfile'));
-
-
 
 module.exports = router;

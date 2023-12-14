@@ -83,7 +83,7 @@
         const phone = form.phone.value;
         const Address = form.adress.value;
         const origin = form.origin.value;
-        const statusCompanie = form.status.value;
+        const statusJob = form.status.value;
         const comments = form.comments.value;
 
         if (jobTitle === '' || website === '') {
@@ -102,7 +102,7 @@
             phone,
             Address,
             origin,
-            statusCompanie,
+            statusJob,
             comments
           }
           console.log(infoJob);
@@ -110,7 +110,7 @@
           try {
             const res = await fetch('/create-job', {
               method: 'POST',
-              body: JSON.stringify(infoCompanies),
+              body: JSON.stringify(infoJob),
               headers: { 'Content-Type': 'application/json' }
             });
             const data = await res.json();

@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3001;
 const dbURI = process.env.DB_URI
 const authRoutes = require('./routes/authRoutes');
 const jobsRouter = require('./routes/jobsRoutes');
+const userRouter = require('./routes/userRoutes');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
@@ -32,5 +33,6 @@ app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use(authRoutes);
 app.use(checkUser, jobsRouter);
+app.use(checkUser, userRouter);
 
 module.exports = app
