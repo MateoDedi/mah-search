@@ -1,6 +1,9 @@
 const { ObjectId } = require('mongodb');
 const User = require('../models/User');
 const Job = require('../models/ConfigJobs');
+const { isEmail } = require('validator');
+const bcrypt = require('bcrypt');
+
 
 module.exports.userProfile = (req, res) => {
   const user = res.locals.user._id;
@@ -9,6 +12,7 @@ module.exports.userProfile = (req, res) => {
 
 
 module.exports.updateUserProfile = async (req, res) => {
+
   console.log(res.locals.user._id);
   try {
     let userInfos = {
@@ -22,14 +26,21 @@ module.exports.updateUserProfile = async (req, res) => {
       cv,
     } = req.body;
 
-    userInfos.password = await bcrypt.hash(userInfos.password, 10);
+    userInfos.password.length >= 6 ?
+      userInfos.password = await bcrypt.hash(userInfos.password, 10) :
+      userInfos.password = await User.findById(res.locals.user._id).password;
 
     const user = await User.findByIdAndUpdate(res.locals.user._id, userInfos);
-    res.status(200).json(user);
+    console.log(user);
+    res.status(200).json({ user });
+    // next();
+    // res.status(200).render('userProfile', { update: false });
   } catch (err) {
     console.log(err);
   }
 }
+
+
 
 module.exports.userProfileDelete = async (req, res, next) => {
   try {

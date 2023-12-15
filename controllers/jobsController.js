@@ -1,13 +1,13 @@
 const { ObjectId } = require("mongodb");
 const User = require("../models/User");
 const Job = require("../models/ConfigJobs")
-
+const { isEmail } = require('validator');
 
 
 
 // handle errors
 const handleErrors = (err) => {
-    let errors = { email: ''};
+    let errors = { email: isEmail };
 
     // incorrect email
     if (err.errors.emailContact.properties.message === 'Please enter a valid email') {
@@ -38,20 +38,19 @@ module.exports.createJob = async (req, res) => {
     } = req.body;
 
     jobInfos.id_user = i
-
     // console.log(companieInfos);
 
     const job = await Job.create(jobInfos)
-    .then(resultat => {
-        console.log(resultat)
-        res.status(201).json({resultat})
-    })
-    .catch(err => {
-        // console.log(err.errors.emailContact.properties.message);
-        handleErrors(err)
-        const errors = handleErrors(err);
-        res.status(400).json({ errors });
-    })
+        .then(resultat => {
+            console.log(resultat)
+            res.status(201).json({ resultat })
+        })
+        .catch(err => {
+            // console.log(err.errors.emailContact.properties.message);
+            handleErrors(err)
+            const errors = handleErrors(err);
+            res.status(400).json('error');
+        })
 }
 
 
@@ -66,7 +65,7 @@ module.exports.listJobs = async (req, res) => {
 }
 
 module.exports.JobItem = async (req, res) => {
-    const jobId = req.params.id; 
+    const jobId = req.params.id;
     try {
         const job = await Job.findById(jobId);
         res.status(200).json(job);
