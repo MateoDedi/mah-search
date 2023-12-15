@@ -177,7 +177,13 @@ header .btn {
 }
 
 .delete {
-  color: red;
+  color: white;
+  background-color: red;
+}
+
+.delete:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .myprofile {

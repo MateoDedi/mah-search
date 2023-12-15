@@ -43,18 +43,5 @@ module.exports.updateUserProfile = async (req, res) => {
 
 
 module.exports.userProfileDelete = async (req, res, next) => {
-  try {
-    const userId = req.params.id; // Assuming the ID is passed as a parameter
 
-    // Delete user profile
-    await User.findByIdAndDelete(userId);
-
-    // Delete jobs linked to the user
-    await Job.deleteMany({ user: userId });
-
-    res.status(200).json({ message: 'User profile and linked jobs deleted successfully' });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'An error occurred while deleting user profile and linked jobs' });
-  }
 }

@@ -55,6 +55,7 @@
                     <p>CV : <%= user.cv %>
                     </p>
                     <h2><a href="/update-profile">Update Profile</a></h2>
+                    <button class="delete">Delete</button>
                 </section>
                 <% } %>
                     <% } %>
@@ -69,8 +70,8 @@
                                 const confirmPasswordError = document.querySelector('.confirmpassword.error');
                                 const firstnameError = document.querySelector('.firstname.error');
                                 const lastnameError = document.querySelector('.lastname.error');
-
-
+                                const btnDelete = document.querySelector('.delete')
+                                console.log(btnDelete);
                                 form.addEventListener('submit', async (e) => {
                                     e.preventDefault();
 
@@ -133,12 +134,14 @@
                                             if (data.user) {
                                                 location.assign('/user-profile');
                                             }
-
                                         }
                                         catch (err) {
                                             console.log(err);
                                         }
                                     }
-
                                 });
+
+
+
+
                             </script>
