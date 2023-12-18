@@ -34,6 +34,7 @@ const jobSchema = new mongoose.Schema({
     origin: [{ type: String }],
     statusJob: [{ type: String }],
     comments: { type: String },
+    date: { type: Date, default: Date.now },
 
 });
 

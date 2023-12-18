@@ -18,15 +18,25 @@
             const listItem = document.createElement('li');
             listItem.classList.add('recipe');
 
+            const date = document.createElement('p');
+            const dateObj = new Date(job.date);
+            const day = dateObj.getDate();
+            const month = dateObj.getMonth() + 1;
+            const year = dateObj.getFullYear();
+            date.textContent = `${day}/${month}/${year}`;
+
             const title = document.createElement('h4');
             title.textContent = job.jobTitle;
 
             const company = document.createElement('p');
             company.textContent = job.company;
 
-            listItem.appendChild(title);
-            listItem.appendChild(company);
+            const del = document.createElement('button');
+            del.classList.add('delete');
+            del.textContent = 'Delete';
+            del.setAttribute('data-id', job._id);
 
+            listItem.appendChild(title, company, deleteButton);
             jobsList.appendChild(listItem);
           });
 
@@ -34,5 +44,25 @@
           console.error('Error fetching data:', error);
         }
       }
+
+      // delete profile
+      //const deleteButton = document.querySelector('.delete');
+      deleteButton.addEventListener('click', async () => {
+        if (e.target.matches('.delete')) {
+          try {
+            const res = await fetch('/job', {
+              method: 'DELETE',
+              body: JSON.stringify({ _id: e.target.dataset.id }),
+              headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            console.log(data);
+          }
+          catch (err) {
+            console.log(err);
+          }
+        }
+      });
+
       fetchData();
     </script>

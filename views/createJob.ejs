@@ -86,6 +86,11 @@
         const statusJob = form.status.value;
         const comments = form.comments.value;
 
+        const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        if (!emailRegex.test(email)) {
+          emailError.textContent = 'Email is not valid';
+        }
+
         if (jobTitle === '' || website === '') {
           jobTitleError.textContent = 'Please fill out the job title';
           websiteError.textContent = 'Please fill out the website';
@@ -122,8 +127,7 @@
               originError.textContent = data.errors.origin;
               statusError.textContent = data.errors.status;
               console.log(data.errors.email);
-            }
-            if (data.user) {
+            } else {
               location.assign('/');
             }
 
