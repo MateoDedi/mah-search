@@ -1,13 +1,10 @@
 const { ObjectId } = require("mongodb");
-const User = require("../models/User");
 const Job = require("../models/ConfigJobs")
-const { isEmail } = require('validator');
-
-
+const User = require("../models/User");
 
 // handle errors
 const handleErrors = (err) => {
-    let errors = { email: isEmail };
+    let errors = { email: '' };
 
     // incorrect email
     if (err.errors.emailContact.properties.message === 'Please enter a valid email') {
@@ -27,7 +24,6 @@ module.exports.createJob = async (req, res) => {
     let jobInfos = {
         jobTitle,
         website,
-        company,
         nameContact,
         emailContact,
         phone,
@@ -38,6 +34,7 @@ module.exports.createJob = async (req, res) => {
     } = req.body;
 
     jobInfos.id_user = i
+
     // console.log(companieInfos);
 
     const job = await Job.create(jobInfos)
@@ -49,18 +46,19 @@ module.exports.createJob = async (req, res) => {
             // console.log(err.errors.emailContact.properties.message);
             handleErrors(err)
             const errors = handleErrors(err);
-            res.status(400).json('error');
+            res.status(400).json({ errors });
         })
 }
 
 
 module.exports.listJobs = async (req, res) => {
+    console.log(res);
     try {
-        const userId = res.locals.user._id;
-        const jobs = await Job.find({ id_user: userId });
+        const id = res.locals.user._id
+        const jobs = await Job.find({ id_user: id });
         res.status(200).json(jobs);
     } catch (err) {
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Failed to retrieve jobs" });
     }
 }
 
@@ -74,12 +72,11 @@ module.exports.JobItem = async (req, res) => {
     }
 };
 
-module.exports.JobUpdate = async (req, res) => {
+module.exports.updateJob = async (req, res) => {
     const jobId = req.params.id;
     const jobInfos = {
         jobTitle,
         website,
-        company,
         nameContact,
         emailContact,
         phone,
@@ -89,18 +86,18 @@ module.exports.JobUpdate = async (req, res) => {
         comments
     } = req.body;
     try {
-        const job = await Job.findByIdAndUpdate(jobId, jobInfos);
+        const job = await Job.findByIdAndUpdate(jobId, jobInfos, { new: true });
         res.status(200).json(job);
     } catch (err) {
         res.status(500).json({ error: "Job not found" });
     }
 }
 
-module.exports.JobDelete = async (req, res) => {
-    const jobId = req.params.id;
+module.exports.deleteJob = async (req, res) => {
+    const jobId = req.body._id;
     try {
         const job = await Job.findByIdAndDelete(jobId);
-        res.status(200).json(job);
+        res.status(200).json({ msg: "Job deleted successfully" });
     } catch (err) {
         res.status(500).json({ error: "Job not found" });
     }

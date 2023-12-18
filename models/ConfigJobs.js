@@ -26,7 +26,7 @@ const jobSchema = new mongoose.Schema({
         type: String,
         required: false,
         lowercase: true,
-        validate: [isEmail, 'Please enter a valid email'],
+        // validate: [isEmail, 'Please enter a valid email'],
     },
     phone: { type: String },
     Address: { type: String },
