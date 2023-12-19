@@ -67,7 +67,7 @@ module.exports.userProfileDelete = async (req, res, next) => {
 
     res.cookie('jwt', '', { maxAge: 1 })
 
-    return res.redirect('signup').status(200).json({ message: 'User and associated jobs deleted successfully' });
+    return res.status(200).json({ message: 'User and associated jobs deleted successfully' });
 
   } catch (err) {
     console.log(err);

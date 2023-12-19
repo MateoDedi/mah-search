@@ -1,0 +1,125 @@
+<%- include('partials/header'); -%>
+
+    <% if (job) { %>
+        <% if (updateJob) { %>
+            <section>
+                <form action="/job/update/<%= job._id %>" method="POST" enctype="multipart/form-data">
+                    <h2>Update</h2>
+
+                    <label for="jobTitle">Job title</label>
+                    <input type="text" name="jobTitle" value="<%= job.jobTitle %>" required>
+                    <div class="jobTitle error"></div>
+
+                    <label for="company">Company</label>
+                    <input type="text" name="company" value="<%= job.company %>" required>
+                    <div class="company error"></div>
+
+                    <label for="website">Website</label>
+                    <input type="text" name="website" value="<%= job.website %>" required>
+                    <div class="website error"></div>
+
+                    <h3>Employer's contact</h3>
+
+                    <label for="name">Name</label>
+                    <input type="text" name="name" value="<%= job.name %>">
+
+                    <label for="email">Email of contact</label>
+                    <input type="text" name="email" value="<%= job.email %>">
+                    <div class="email error"></div>
+
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" value="<%= job.phone %>">
+
+                    <label for="address">Address</label>
+                    <input type="text" name="address" value="<%= job.address %>">
+
+                    <label for="origin">Origin</label>
+                    <select name="origin" id="origin" required>
+                        <option value="spontaneous">Spontaneous application</option>
+                        <option value="job offer">Job offer</option>
+                    </select>
+                    <div class="origin error"></div>
+
+                    <label for="status">Status</label>
+                    <select name="status" id="status" required>
+                        <option value="interested">Interested</option>
+                        <option value="cv sent">CV sent</option>
+                        <option value="negative">Negative</option>
+                        <option value="interview">Interview</option>
+                    </select>
+                    <div class="status error"></div>
+
+                    <label for="comments">Comments</label>
+                    <textarea name="comments" id="comments" cols="30" rows="10"><%= job.comments %></textarea>
+
+                    <button class="update" type="submit">Update</button>
+                </form>
+            </section>
+            <% } else { %>
+                <section>
+                    <h2>
+                        <%= job.jobTitle %>
+                    </h2>
+                    <h3>
+                        <%= job.company %>
+                    </h3>
+                    <p>
+                        <%= job.website %>
+                    </p>
+                    <p>
+                        <%= job.name %>
+                    </p>
+                    <p>
+                        <%= job.email %>
+                    </p>
+                    <p>
+                        <%= job.phone %>
+                    </p>
+                    <p>
+                        <%= job.address %>
+                    </p>
+                    <p>
+                        <%= job.origin %>
+                    </p>
+                    <p>
+                        <%= job.statusJob %>
+                    </p>
+                    <p>
+                        <%= job.comments %>
+                    </p>
+
+                    <form action="/job/delete/<%= job._id %>" method="DELETE">
+                        <button class="delete" type="submit">Delete</button>
+                    </form>
+
+                    <a href="/job/update/<%= job._id %>">Update</a>
+                </section>
+                <% } %>
+                    <% } %>
+
+                        <%- include('partials/footer'); -%>
+
+                            <script>
+                                const updateForm = document.querySelector('form');
+                                updateForm.addEventListener('submit', async (e) => {
+                                    e.preventDefault();
+                                    const jobId = '<%= job._id %>';
+                                    const formData = new FormData(updateForm);
+                                    const requestData = Object.fromEntries(formData.entries());
+
+                                    try {
+                                        const response = await fetch(`/job/update/${jobId}`, {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify(requestData),
+                                        });
+
+                                        const data = await response.json();
+                                        // Faites quelque chose avec la réponse si nécessaire
+                                    } catch (error) {
+                                        console.error('Error updating job:', error);
+                                    }
+                                });
+                            </script>

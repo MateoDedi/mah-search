@@ -30,9 +30,10 @@ mongoose.connect(dbURI)
 // routes
 app.get('*', checkUser);
 app.get('/', (req, res) => res.render('home'));
-app.get('/jobs', requireAuth, (req, res) => res.render('viewJobs'));
+app.get('/jobs', requireAuth, (req, res) => res.render('viewJob'));
 app.use(authRoutes);
 app.use(checkUser, jobsRouter);
 app.use(checkUser, userRouter);
+app.use('/job', jobsRouter);
 
 module.exports = app

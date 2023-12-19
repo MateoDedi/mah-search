@@ -36,8 +36,8 @@
                     <input type="password" name="confirmpassword" placeholder="Optional">
                     <div class="confirmpassword error"></div>
 
-                    <button>Update</button>
-                    <button class="delete">Delete profile</button>
+                    <button class="update">Update</button>
+
                 </form>
             </section>
             <% } else { %>
@@ -56,7 +56,7 @@
                     <p>CV : <%= user.cv %>
                     </p>
                     <h2><a href="/update-profile">Update Profile</a></h2>
-
+                    <button class="delete">Delete profile</button>
                 </section>
                 <% } %>
                     <% } %>
@@ -72,6 +72,7 @@
                                 const confirmPasswordError = document.querySelector('.confirmpassword.error');
                                 const firstnameError = document.querySelector('.firstname.error');
                                 const lastnameError = document.querySelector('.lastname.error');
+                                const updateBtn = document.querySelector('.update');
                                 document.addEventListener('submit', async (e) => {
                                     e.preventDefault();
 
@@ -131,7 +132,7 @@
                                                 passwordError.textContent = data.errors.password;
                                             }
                                             if (data.user) {
-                                                location.assign('/signup');
+                                                location.assign('/user-profile');
                                             }
 
                                         }
@@ -139,33 +140,33 @@
                                             console.log(err);
                                         }
                                     }
-                                });
 
+                                });
 
                                 const deleteButton = document.querySelector('.delete');
                                 deleteButton.addEventListener('click', async (e) => {
-                                    if (e.target.matches('.delete')) {
-                                        try {
-                                            const res = await fetch('/delete-profile', {
-                                                method: 'DELETE',
-                                                body: JSON.stringify({ _id: 0 }),
-                                                headers: { 'Content-Type': 'application/json' }
-                                            });
-                                            const data = await res.json();
-                                            console.log(data);
-                                            if (data.user) {
-                                                location.assign('/signup');
-                                            }
-                                            else {
-                                                location.assign('/signup');
-
-                                            }
+                                    e.preventDefault();
+                                    try {
+                                        const res = await fetch('/delete-profile', {
+                                            method: 'DELETE',
+                                            body: JSON.stringify({ _id: 0 }),
+                                            headers: { 'Content-Type': 'application/json' }
+                                        });
+                                        const data = await res.json();
+                                        console.log(data);
+                                        if (data.user) {
+                                            location.assign('/signup');
                                         }
-                                        catch (err) {
-                                            console.log(err);
+                                        else {
+                                            location.assign('/signup');
+
                                         }
                                     }
+                                    catch (err) {
+                                        console.log(err);
+                                    }
                                 });
+
 
 
 

@@ -1,15 +1,44 @@
-<%- include('partials/header'); -%>
+<html lang="en">
 
-<header>
-  <div class="smoothie">
-    <img src="/mah-search/assets/logo.png" alt="">
-  </div>
-  <div class="headings">
-    <h2>JOB TRACKER</h2>
-    <h3>By Hugo, Mateo & Antonino</h3>
-    <a href="/viewJobs" class="btn">View Jobs</a>
-  </div>
-</header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JOB TRACKER</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <nav>
+    <h1><a href="/">JOB TRACKER</a></h1>
+    <ul>
+      <% if (user) { %>
+        <li>Welcome, <%= user.firstname %>
+            <%= user.lastname %>
+        </li>
+        <li><a href="/user-profile">My profile</a></li>
+        <li><a href="/logout">Log out</a></li>
+        <% } %>
+    </ul>
+  </nav>
 
 
-<%- include('partials/footer'); -%>
+
+  <% if (user) { %>
+    <header>
+      <div class="smoothie">
+        <img src="/mah-search/assets/logo.png" alt="">
+      </div>
+      <div class="headings">
+        <h2>JOB TRACKER</h2>
+        <h3>Bonjour <%= user.firstname %>
+        </h3>
+        <a href="/list-jobs" class="btn">View Jobs</a>
+        <a href="/create-job" class="btn">Create a job</a>
+      </div>
+    </header>
+    <% } else { %>
+      <a href="/login" class="btn">Login</a>
+      <a href="/signup" class="btn">Signup</a>
+      <% } %>
+
+        <%- include('partials/footer'); -%>

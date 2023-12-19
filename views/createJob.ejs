@@ -33,8 +33,8 @@
 
     <label for="origin">Origin</label>
     <select name="origin" id="origin" required>
-      <option value="spontaneous">spontaneous application</option>
-      <option value="offer">Job offer</option>
+      <option value="spontaneous">Spontaneous application</option>
+      <option value="job offer">Job offer</option>
     </select>
     <div class="origin error"></div>
 
@@ -42,7 +42,7 @@
     <label for="status">Status</label>
     <select name="status" id="status" required>
       <option value="interested">Interested</option>
-      <option value="sent">CV sent</option>
+      <option value="cv sent">CV sent</option>
       <option value="negative">Negative</option>
       <option value="interview">Interview</option>
     </select>
@@ -124,7 +124,7 @@
               console.log(data.errors.email);
             }
             else {
-              location.assign('/');
+              location.assign('/list-jobs');
             }
 
           }
