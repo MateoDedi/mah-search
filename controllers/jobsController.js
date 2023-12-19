@@ -178,28 +178,6 @@
 //     }
 // };
 
-
-
-// jobsController.js
-
-const { ObjectId } = require("mongodb");
-const Job = require("../models/ConfigJobs");
-const User = require("../models/User");
-
-// handle errors
-const handleErrors = (err) => {
-    let errors = { email: '' };
-
-    if (err.errors && err.errors.emailContact) {
-        // incorrect email
-        if (err.errors.emailContact.properties.message === 'Please enter a valid email') {
-            errors.email = 'Please enter a valid email';
-        }
-    }
-
-    return errors;
-};
-
 // module.exports.createJob = async (req, res) => {
 //     let i = res.locals.user._id;
 
@@ -228,6 +206,77 @@ const handleErrors = (err) => {
 //             res.status(400).json({ errors });
 //         });
 // };
+
+
+
+// module.exports.updateJob = async (req, res) => {
+//     const jobId = req.params.id;
+//     const jobInfos = {
+//         jobTitle: req.body.jobTitle,
+//         website: req.body.website,
+//         nameContact: req.body.nameContact,
+//         emailContact: req.body.emailContact,
+//         phone: req.body.phone,
+//         Address: req.body.Address,
+//         origin: req.body.origin,
+//         statusJob: req.body.statusJob,
+//         comments: req.body.comments
+//     };
+
+//     try {
+//         const job = await Job.findByIdAndUpdate(jobId, jobInfos, { new: true });
+//         res.redirect(`/job/${job._id}`);
+//     } catch (err) {
+//         res.status(500).json({ error: 'Job not found' });
+//     }
+// };
+
+// module.exports.deleteJob = async (req, res) => {
+//     const jobId = req.params.id;
+
+//     try {
+//         await Job.findByIdAndDelete(jobId);
+//         res.redirect('/list-jobs');
+//     } catch (err) {
+//         res.status(500).json({ error: 'Job not found' });
+//     }
+// };
+
+
+// module.exports.deleteJob = async (req, res) => {
+//     const jobId = req.params.id;
+
+//     try {
+//         await Job.findByIdAndDelete(jobId);
+//         res.json({ success: true });
+
+//     } catch (err) {
+//         res.status(500).json({ error: 'Job not found' });
+//     }
+// };
+
+
+
+// jobsController.js
+
+const { ObjectId } = require("mongodb");
+const Job = require("../models/ConfigJobs");
+const User = require("../models/User");
+
+// handle errors
+const handleErrors = (err) => {
+    let errors = { email: '' };
+
+    if (err.errors && err.errors.emailContact) {
+        // incorrect email
+        if (err.errors.emailContact.properties.message === 'Please enter a valid email') {
+            errors.email = 'Please enter a valid email';
+        }
+    }
+
+    return errors;
+};
+
 
 module.exports.createJob = async (req, res) => {
     let i = res.locals.user._id
@@ -259,8 +308,6 @@ module.exports.createJob = async (req, res) => {
             res.status(400).json({ errors });
         })
 }
-
-
 module.exports.listJobs = async (req, res) => {
     try {
         const id = res.locals.user._id;
@@ -295,6 +342,7 @@ module.exports.editJob = async (req, res) => {
 
         if (job) {
             res.render('viewJob', { job, updateJob: true });
+
         } else {
             res.status(404).json({ error: 'Job not found' });
         }
@@ -303,47 +351,51 @@ module.exports.editJob = async (req, res) => {
     }
 };
 
+
+// Dans jobsController.js
 module.exports.updateJob = async (req, res) => {
     const jobId = req.params.id;
-    const jobInfos = {
-        jobTitle: req.body.jobTitle,
-        website: req.body.website,
-        nameContact: req.body.nameContact,
-        emailContact: req.body.emailContact,
-        phone: req.body.phone,
-        Address: req.body.Address,
-        origin: req.body.origin,
-        statusCompanie: req.body.statusCompanie,
-        comments: req.body.comments
-    };
 
+    // Récupérez les données du formulaire depuis le corps de la demande
+    const { jobTitle, company, website, name, email, phone, address, origin, status, comments } = req.body;
+
+    // Mettez à jour l'emploi avec les nouvelles informations
     try {
-        const job = await Job.findByIdAndUpdate(jobId, jobInfos, { new: true });
-        res.redirect(`/job/${job._id}`);
-    } catch (err) {
-        res.status(500).json({ error: 'Job not found' });
+        const updatedJob = await Job.findByIdAndUpdate(jobId, {
+            jobTitle,
+            company,
+            website,
+            name,
+            email,
+            phone,
+            address,
+            origin,
+            status,
+            comments
+        }, { new: true });
+
+        res.redirect(`/job/${updatedJob._id}`);
+    } catch (error) {
+        console.error('Error updating job:', error);
+        res.status(500).json({ error: 'Failed to update job' });
     }
 };
-
-// module.exports.deleteJob = async (req, res) => {
-//     const jobId = req.params.id;
-
-//     try {
-//         await Job.findByIdAndDelete(jobId);
-//         res.redirect('/list-jobs');
-//     } catch (err) {
-//         res.status(500).json({ error: 'Job not found' });
-//     }
-// };
 
 
 module.exports.deleteJob = async (req, res) => {
     const jobId = req.params.id;
+    console.log(`received delete request for job, ${jobId}`);
 
     try {
-        await Job.findByIdAndDelete(jobId);
-        res.json({ success: true });
-    } catch (err) {
-        res.status(500).json({ error: 'Job not found' });
+        const deletedJob = await Job.findByIdAndDelete(jobId);
+
+        if (deletedJob) {
+            res.json({ success: true });
+        } else {
+            res.status(404).json({ error: 'Job not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting job:', error);
+        res.status(500).json({ error: 'Failed to delete job' });
     }
 };

@@ -85,6 +85,7 @@
         const origin = form.origin.value;
         const statusJob = form.status.value;
         const comments = form.comments.value;
+        const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
         if (jobTitle === '' || website === '') {
           jobTitleError.textContent = 'Please fill out the job title';
@@ -92,7 +93,12 @@
           emailError.textContent = 'Please enter a valid email';
           originError.textContent = 'Please fill out the origin';
           statusError.textContent = 'Please fill out the status';
-        } else {
+
+        }
+        else if (emailContact && !emailRegex.test(emailContact)) {
+          emailError.textContent = 'Please enter a valid email';
+        }
+        else {
           let infoJob = {
             jobTitle,
             website,

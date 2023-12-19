@@ -33,8 +33,11 @@
 
     <button type="submit">Apply Filters</button>
 
+
+    <a href="/create-job">Create a Job</a>
+
   </form>
-  <a href="/create-job">Create a Job</a>
+
   <ul class="jobs">
     <% jobs.forEach(job=> { %>
       <% if ((!filterOrigin || job.origin.includes(filterOrigin)) && (!filterStatus ||

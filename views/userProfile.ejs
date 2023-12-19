@@ -146,24 +146,29 @@
                                 const deleteButton = document.querySelector('.delete');
                                 deleteButton.addEventListener('click', async (e) => {
                                     e.preventDefault();
-                                    try {
-                                        const res = await fetch('/delete-profile', {
-                                            method: 'DELETE',
-                                            body: JSON.stringify({ _id: 0 }),
-                                            headers: { 'Content-Type': 'application/json' }
-                                        });
-                                        const data = await res.json();
-                                        console.log(data);
-                                        if (data.user) {
-                                            location.assign('/signup');
-                                        }
-                                        else {
-                                            location.assign('/signup');
+                                    const confirmation = confirm("Are you sure you want to delete your profile?");
+                                    if (confirmation) {
+                                        try {
+                                            const res = await fetch('/delete-profile', {
+                                                method: 'DELETE',
+                                                body: JSON.stringify({ _id: 0 }),
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                }
+                                            });
+                                            const data = await res.json();
+                                            console.log(data);
+                                            if (data.user) {
+                                                location.assign('/signup');
+                                            }
+                                            else {
+                                                location.assign('/signup');
 
+                                            }
                                         }
-                                    }
-                                    catch (err) {
-                                        console.log(err);
+                                        catch (err) {
+                                            console.log(err);
+                                        }
                                     }
                                 });
 
