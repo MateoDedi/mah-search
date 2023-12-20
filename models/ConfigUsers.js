@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     linkedin: { type: String },
     github: { type: String },
-    photoprofil: { type: String },
+    profilpicture: { type: String },
     cv: { type: String },
 });
 

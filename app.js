@@ -4,9 +4,12 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 // const dbURI = process.env.MONGODB_URI || process.env.DB_URI
 const dbURI = process.env.DB_URI
+
 const authRoutes = require('./routes/authRoutes');
 const jobsRouter = require('./routes/jobsRoutes');
 const userRouter = require('./routes/userRoutes');
+const downloadRouter = require('./routes/downloadsRoutes');
+
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
@@ -35,5 +38,6 @@ app.use(authRoutes);
 app.use(checkUser, jobsRouter);
 app.use(checkUser, userRouter);
 app.use('/job', jobsRouter);
+app.use(checkUser, downloadRouter);
 
 module.exports = app
