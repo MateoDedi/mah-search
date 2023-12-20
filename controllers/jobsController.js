@@ -357,24 +357,15 @@ module.exports.updateJob = async (req, res) => {
     const jobId = req.params.id;
 
     // Récupérez les données du formulaire depuis le corps de la demande
-    const { jobTitle, company, website, name, email, phone, address, origin, status, comments } = req.body;
+    const infosJobs = { jobTitle, company, website, name, email, phone, address, origin, statusJob, comments } = req.body;
+    // console.log(jobId);
+    // console.log(req.body);
 
     // Mettez à jour l'emploi avec les nouvelles informations
     try {
-        const updatedJob = await Job.findByIdAndUpdate(jobId, {
-            jobTitle,
-            company,
-            website,
-            name,
-            email,
-            phone,
-            address,
-            origin,
-            status,
-            comments
-        }, { new: true });
+        const updatedJob = await Job.findByIdAndUpdate(jobId, infosJobs, { new: true });
 
-        res.redirect(`/job/${updatedJob._id}`);
+        res.status(200).json({ updateJob: false});
     } catch (error) {
         console.error('Error updating job:', error);
         res.status(500).json({ error: 'Failed to update job' });

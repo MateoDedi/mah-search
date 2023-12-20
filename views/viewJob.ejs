@@ -40,8 +40,8 @@
                     </select>
                     <div class="origin error"></div>
 
-                    <label for="status">Status</label>
-                    <select name="status" id="status" required>
+                    <label for="statusJob">Status</label>
+                    <select name="statusJob" id="statusJob" required>
                         <option value="interested">Interested</option>
                         <option value="cv sent">CV sent</option>
                         <option value="negative">Negative</option>
@@ -52,7 +52,7 @@
                     <label for="comments">Comments</label>
                     <textarea name="comments" id="comments" cols="30" rows="10"><%= job.comments %></textarea>
 
-                    <button class="update" type="submit">Save</button>
+                    <button class="update" type="submit" data-id="<%= job._id %>">Save</button>
                 </form>
             </section>
             <% } else { %>
@@ -95,7 +95,7 @@
                     <a href="/job/update/<%= job._id %>">Edit</a>
                 </section>
                 <% } %>
-                    <% } %>
+    <% } %>
 
                         <%- include('partials/footer'); -%>
 
@@ -113,6 +113,7 @@
 
                                 document.addEventListener('submit', async (e) => {
                                     e.preventDefault();
+                                    
 
                                     // reset errors
                                     jobTitleError.textContent = '';
@@ -131,7 +132,7 @@
                                     const phone = form.phone.value;
                                     const address = form.address.value;
                                     const origin = form.origin.value;
-                                    const status = form.status.value;
+                                    const statusJob = form.statusJob.value;
                                     const comments = form.comments.value;
 
 
@@ -153,7 +154,7 @@
                                     if (origin === '') {
                                         originError.textContent = 'Origin is required';
                                     }
-                                    if (status === '') {
+                                    if (statusJob === '') {
                                         statusError.textContent = 'Status is required';
                                     }
 
@@ -167,13 +168,13 @@
                                             phone,
                                             address,
                                             origin,
-                                            status,
+                                            statusJob,
                                             comments
                                         }
                                         try {
-                                            const res = await fetch(`/job/update/${job._id}`, {
+                                            const res = await fetch(`/job/update/${updateBtn.dataset.id}`, {
                                                 method: 'PUT',
-                                                body: JSON.stringify(infoUsers),
+                                                body: JSON.stringify(infoJobs),
                                                 headers: { 'Content-Type': 'application/json' }
                                             });
                                             const data = await res.json();
@@ -184,12 +185,11 @@
                                                 websiteError.textContent = data.errors.website;
                                                 emailError.textContent = data.errors.email;
                                                 originError.textContent = data.errors.origin;
-                                                statusError.textContent = data.errors.status;
-                                            }
-                                            if (data.user) {
-                                                location.assign(`/job/update/${job._id}`);
-                                            }
-
+                                                statusError.textContent = data.errors.statusJob;
+                                            }else{false}
+                                            console.log(`/list-jobs`);
+                                            // window.location.href(`/list-jobs`);
+                                            window.location.href = `/list-jobs`;
                                         }
                                         catch (err) {
                                             console.log(err);
@@ -240,4 +240,4 @@
 
 
 
-                                <script />
+                                </script>

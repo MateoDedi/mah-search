@@ -39,51 +39,55 @@
   </form>
 
   <ul class="jobs">
-    <% jobs.forEach(job=> { %>
-      <% if ((!filterOrigin || job.origin.includes(filterOrigin)) && (!filterStatus ||
-        job.statusJob.includes(filterStatus))) { %>
-        <li class="job">
-          <h2>
-            <a href="/job/<%= job._id %>">
-              <%= job.jobTitle %>
-            </a>
-          </h2>
+<% if (jobs) { %>
+  <% jobs.forEach(job=> { %>
+    <% if ((!filterOrigin || job.origin.includes(filterOrigin)) && (!filterStatus ||
+      job.statusJob.includes(filterStatus))) { %>
+      <li class="job">
+        <h2>
+          <a href="/job/<%= job._id %>">
+            <%= job.jobTitle %>
           </a>
-          <h3>
-            <%= job.company %>
-          </h3>
-          <p>
-            <%= job.website %>
-          </p>
-          <p>
-            <%= job.name %>
-          </p>
-          <p>
-            <%= job.email %>
-          </p>
-          <p>
-            <%= job.phone %>
-          </p>
-          <p>
-            <%= job.adress %>
-          </p>
-          <p>
-            <%= job.origin %>
-          </p>
-          <p>
-            <%= job.statusJob %>
-          </p>
-          <p>
-            <%= job.comments %>
-          </p>
-          <a href="/job/update/<%= job._id %>">Edit</a>
-          <button class="delete" type="submit" data-jobid="<%= job._id %>">Delete</button>
+        </h2>
+        </a>
+        <h3>
+          <%= job.company %>
+        </h3>
+        <p>
+          <%= job.website %>
+        </p>
+        <p>
+          <%= job.name %>
+        </p>
+        <p>
+          <%= job.email %>
+        </p>
+        <p>
+          <%= job.phone %>
+        </p>
+        <p>
+          <%= job.adress %>
+        </p>
+        <p>
+          <%= job.origin %>
+        </p>
+        <p>
+          <%= job.statusJob %>
+        </p>
+        <p>
+          <%= job.comments %>
+        </p>
+        <a href="/job/update/<%= job._id %>">Edit</a>
+        <button class="delete" type="submit" data-jobid="<%= job._id %>">Delete</button>
 
 
 
-        </li>
-        <% } %>
-          <% }); %>
+      </li>
+      <% } %>
+        <% }); %>
+<% } else { %>
+  <p>No jobs found.</p>
+<% } %>
   </ul>
 
 
@@ -94,6 +98,7 @@
 
     <script>
       async function fetchJobs() {
+        console.log('test');
         try {
           const response = await fetch('/list-jobs', {
             method: 'GET'
