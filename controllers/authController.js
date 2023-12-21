@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
-
+const cloudinary = require('cloudinary').v2;
+const cld = require('../middleware/cloudinaryConfig');
 // handle errors
 const handleErrors = (err) => {
   console.log(err.message, err.code);
@@ -52,17 +53,16 @@ module.exports.login_get = (req, res) => {
 
 
 module.exports.signup_post = async (req, res) => {
-
   try {
 
     let userInfos = {
-      firstname, 
-      lastname, 
-      email, 
+      firstname,
+      lastname,
+      email,
       password,
       linkedin,
       github,
-      profilpicture, 
+      profilpicture,
       cv
     } = req.body;
 
@@ -74,7 +74,7 @@ module.exports.signup_post = async (req, res) => {
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id });
   }
-  catch(err) {
+  catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
   }
@@ -91,7 +91,7 @@ module.exports.login_post = async (req, res) => {
     const token = createToken(user._id);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(200).json({ user: user._id });
-  } 
+  }
   catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
@@ -103,4 +103,6 @@ module.exports.logout_get = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
   res.redirect('/');
 }
+
+
 

@@ -95,7 +95,7 @@
           statusError.textContent = 'Please fill out the status';
 
         }
-        else if (emailContact && !emailRegex.test(emailContact)) {
+        if (emailContact && !emailRegex.test(emailContact)) {
           emailError.textContent = 'Please enter a valid email';
         }
         else {

@@ -29,11 +29,11 @@
     <h2>Register</h2>
 
     <label for="firstname">First name</label>
-    <input type="text" name="firstname">
+    <input type="text" name="firstname" required>
     <div class="firstname error"></div>
 
     <label for="lastname">Last name</label>
-    <input type="text" name="lastname">
+    <input type="text" name="lastname" required>
     <div class="lastname error"></div>
 
     <label for="email">Email</label>
@@ -43,11 +43,11 @@
     <label for="github">GitHub</label>
     <input type="text" name="github">
 
-    <label for="profilpicture">Profile picture</label>
-    <input type="file" name="profilpicture">
+    <!-- <label for="profilpicture">Profile picture</label>
+    <input type="file" name="profilpicture"> -->
 
     <label for="cv">CV (pdf)</label>
-    <input type="file" name="cv">
+    <input type="text" name="cv" placeholder="Enter a link for your cv ( ex: Google Drive)">
 
     <label for="password">Password</label>
     <input type="password" name="password" required>
@@ -88,7 +88,7 @@
         const firstname = form.firstname.value
         const lastname = form.lastname.value
         const github = form.github.value
-        const profilpicture = form.profilpicture.value
+        // const profilpicture = form.profilpicture.value
         const cv = form.cv.value
 
 
@@ -114,7 +114,7 @@
             password,
             linkedin: "",
             github,
-            profilpicture,
+            profilpicture: "",
             cv
           }
           try {
@@ -140,4 +140,4 @@
         }
 
       });
-    </script>
+    </script>T

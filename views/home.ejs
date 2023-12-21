@@ -9,12 +9,16 @@
 
 <body>
   <nav>
+
     <h1><a href="/">JOB TRACKER</a></h1>
     <ul>
       <% if (user) { %>
         <li>Welcome, <%= user.firstname %>
             <%= user.lastname %>
         </li>
+        <div class="smoothie">
+          <img src="<%= user.profilpicture %>" alt="">
+        </div>
         <li><a href="/user-profile">My profile</a></li>
         <li><a href="/logout">Log out</a></li>
         <% } %>
@@ -25,9 +29,9 @@
 
   <% if (user) { %>
     <header>
-      <div class="smoothie">
+      <!-- <div class="smoothie">
         <img src="<%= user.profilpicture %>" alt="">
-      </div>
+      </div> -->
       <div class="headings">
         <h2>JOB TRACKER</h2>
         <h3>Bonjour <%= user.firstname %>

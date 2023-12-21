@@ -22,11 +22,12 @@
                     <label for="github">GitHub</label>
                     <input type="text" name="github" value="<%= user.github %>">
 
-                    <label for="profilpicture">Profile picture</label>
-                    <input type="file" name="profilpicture">
+                    <!-- <label for="profilpicture">Profile picture</label>
+                    <input type="file" name="profilpicture" value="<%= user.profilpicture%>"> -->
 
                     <label for="cv">CV (pdf)</label>
-                    <input type="file" name="cv">
+                    <input type="text" name="cv" value="<%= user.cv%>"
+                        placeholder="Enter a link for your cv ( ex: Google Drive)">
 
                     <label for="password">Password</label>
                     <input type="password" name="password" placeholder="Optional">
@@ -49,14 +50,18 @@
                     </p>
                     <p>Email : <%= user.email %>
                     </p>
-                    <p>Github : <%= user.github %>
+                    <p>Github : <a href="<%= user.github %>" target="_blank" rel="noopener noreferrer">
+                            <%= user.github %>
+                        </a>
                     </p>
-                    <p>Photo de profil : <%= user.profilpicture %>
-                    </p>
-                    <p>CV : <%= user.cv %>
+                    <!-- <p>Photo de profil : <%= user.profilpicture %>
+                    </p> -->
+                    <p>CV : <a href="<%= user.cv %>" target="_blank" rel="noopener noreferrer">
+                            <%= user.cv %>
+                        </a>
                     </p>
                     <h2><a href="/update-profile">Update Profile</a></h2>
-                    <h2><a href="/upload">Update image</a></h2>
+                    <h2><a href="/upload">Add Picture</a></h2>
                     <button class="delete">Delete profile</button>
                 </section>
                 <% } %>
@@ -91,7 +96,7 @@
                                     const firstname = form.firstname.value
                                     const lastname = form.lastname.value
                                     const github = form.github.value
-                                    const profilpicture = form.profilpicture.value
+                                    const profilpicture = "";
                                     const cv = form.cv.value
 
 

@@ -308,6 +308,10 @@ module.exports.createJob = async (req, res) => {
             res.status(400).json({ errors });
         })
 }
+
+
+
+
 module.exports.listJobs = async (req, res) => {
     try {
         const id = res.locals.user._id;
@@ -352,21 +356,32 @@ module.exports.editJob = async (req, res) => {
 };
 
 
-// Dans jobsController.js
+
 module.exports.updateJob = async (req, res) => {
     const jobId = req.params.id;
 
-    // Récupérez les données du formulaire depuis le corps de la demande
-    const infosJobs = { jobTitle, company, website, name, email, phone, address, origin, statusJob, comments } = req.body;
+
+    let jobInfos = {
+        jobTitle,
+        website,
+        nameContact,
+        emailContact,
+        phone,
+        Address,
+        origin,
+        statusJob,
+        comments
+    } = req.body;
     // console.log(jobId);
     // console.log(req.body);
 
-    // Mettez à jour l'emploi avec les nouvelles informations
-    try {
-        const updatedJob = await Job.findByIdAndUpdate(jobId, infosJobs, { new: true });
 
-        res.status(200).json({ updateJob: false});
-    } catch (error) {
+    try {
+        const updatedJob = await Job.findByIdAndUpdate(jobId, jobInfos, { new: true });
+
+        res.status(200).json({ updateJob: false });
+    } catch (err) {
+
         console.error('Error updating job:', error);
         res.status(500).json({ error: 'Failed to update job' });
     }

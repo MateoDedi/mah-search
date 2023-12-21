@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const authController = require('../controllers/authController');
+const upload = require('../middleware/MulterConfig');
+
 
 const router = Router();
 
