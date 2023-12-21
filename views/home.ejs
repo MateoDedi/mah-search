@@ -30,12 +30,12 @@
   <%- include('partials/header'); -%>
 
   <% if (user) { %>
-    <header>
-      <div class="smoothie">
-        <img src="./job-seekers-logo-design.png" alt="#">
+    <header class="front">
+      <div >
+        <img class="hero" src="./job-seekers-logo-design.png" alt="#">
       </div>
       <div class="headings">
-        <h2>JOB TRACKER</h2>
+        <h2>YOUR PERSONAL JOB TRACKER</h2>
         <h3>Hello <%= user.firstname %>
         </h3>
         <a href="/list-jobs" class="btn">View Jobs</a>
@@ -43,8 +43,23 @@
       </div>
     </header>
     <% } else { %>
-      <a href="/login" class="btn">Login</a>
-      <a href="/signup" class="btn">Signup</a>
+      <div class="front">
+        <div class="midHero">
+          <img class="newScreen" src="./job-seekers-logo-design.png" alt="#">
+        </div>
+  
+        <div class="card">
+          <h2>Welcome to Job Tracker! The one and only app you need to track all your job applications!</h2>
+          <br>
+          <br>
+          <h2>Do you already have an account?</h2>
+            <a class="login1" href="/login" class="btn">Login</a>
+          <br>
+          <br>
+          <h2>Or would you want to create one?</h2>
+          <a class="signup1" href="/signup" class="btn">Signup</a>
+        </div>
+      </div>
       <% } %>
 
 <%- include('partials/footer'); -%>

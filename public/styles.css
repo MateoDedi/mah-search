@@ -34,8 +34,35 @@ footer {
   color: #444444;
 }
 
-img {
-  width: 100%;
+img .hero{
+  max-width: 100%;
+}
+
+.front {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+a .title {
+  color: #fff;
+  font-size: 2rem;
+}
+
+nav h1 .logo .newScreen{
+  width: 50px;
+}
+
+.midHero {
+  margin: 0 auto;
+}
+
+img .newScreen {
+  max-width: 100%;
 }
 
 ul {
@@ -85,6 +112,20 @@ nav li a {
   color: #fff;
 }
 
+.login1, .signup1 {
+  background: #4c3fff;
+  color: #fff;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8em;
+  display: block;
+  padding: 10px 16px;
+  letter-spacing: 2px;
+  margin-top: 1rem;
+  max-width: fit-content;
+}
+
 .btn {
   background: #4c3fff;
 }
@@ -101,6 +142,15 @@ form h2 {
 
 form {
   width: 360px;
+  margin: 0 auto;
+  padding: 30px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: white;
+}
+
+.card {
+  max-width: 1440px;
   margin: 0 auto;
   padding: 30px;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
@@ -136,6 +186,30 @@ button {
 
 button:hover {
   background: #201799;
+}
+
+.missclick{
+  margin: 0 auto;
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+
+.loginbutton {
+  background: #4c3fff;
+  max-width: fit-content;
+  color: #fff;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8em;
+  display: block;
+  padding: 10px 16px;
+  letter-spacing: 2px;
+  margin: 0 auto;
+  margin-top: 1rem;
 }
 
 .error {
@@ -354,8 +428,10 @@ button{
 }
 
 footer {
-  text-align: center;
-  margin-top: 120px;
+  font-size: 1rem;
+  text-align: start;
+  margin-top: 5rem;
+  margin-left: 1rem;
   color: #aaa;
 }
 
@@ -368,7 +444,7 @@ button.update {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #e4e4e4;
+  background-color: rgba(0, 0, 0, 0);
   border-radius: 100px;
 }
 
