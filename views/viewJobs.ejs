@@ -53,31 +53,14 @@
             <h3>
               <%= job.company %>
             </h3>
-            <!-- <p>
-          <%= job.website %>
-        </p> -->
-            <p>
-              <%= job.nameContact %>
-            </p>
-            <p>
-              <%= job.emailContact%>
-            </p>
-            <!-- <p>
-          <%= job.phone %>
-        </p> -->
+            
             <!-- <p>
               <%= job.Address %>
             </p> -->
-            <!-- < <p>
-          <%= job.origin %>
-        </p> -->
             <p>
               <%= job.statusJob %>
             </p>
-            <p>
-              <%= job.comments %>
-            </p>
-            <a href="/job/update/<%= job._id %>">Edit</a>
+            <a class="edit" href="/job/update/<%= job._id %>">Edit</a>
             <button class="delete" type="submit" data-jobid="<%= job._id %>">Delete</button>
 
 

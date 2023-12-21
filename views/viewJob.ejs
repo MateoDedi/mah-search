@@ -57,40 +57,40 @@
             </section>
             <% } else { %>
                 <section>
-                    <h2>
+                    <h2 class="jobTitle">
                         <%= job.jobTitle %>
                     </h2>
-                    <h3>
+                    <h3 class="company">
                         <%= job.company %>
                     </h3>
-                    <p>
+                    <p class="website">
                         <%= job.website %>
                     </p>
-                    <p>
+                    <p class="nameContact">
                         <%= job.nameContact %>
                     </p>
-                    <p>
+                    <p class="emailContact">
                         <%= job.emailContact %>
                     </p>
-                    <p>
+                    <p class="phone">
                         <%= job.phone %>
                     </p>
-                    <p>
+                    <p class="Address">
                         <%= job.Address %>
                     </p>
-                    <p>
+                    <p class="origin">
                         <%= job.origin %>
                     </p>
-                    <p>
+                    <p class="statusJob">
                         <%= job.statusJob %>
                     </p>
-                    <p>
+                    <p class="comments">
                         <%= job.comments %>
                     </p>
 
 
-                    <a href="/list-jobs">Back to list</a>
-                    <a href="/job/update/<%= job._id %>">Edit</a>
+                    <a class="goBack" href="/list-jobs">Back to list</a>
+                    <a class="edit" href="/job/update/<%= job._id %>">Edit</a>
                 </section>
                 <% } %>
                     <% } %>

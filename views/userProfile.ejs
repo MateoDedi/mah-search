@@ -42,11 +42,11 @@
                 </form>
             </section>
             <% } else { %>
-                <section>
-                    <h1>Profil du user</h1>
-                    <p>Prénom : <%= user.firstname %>
+                <section class="profile">
+                    <h1>Your profile</h1>
+                    <p>First Name : <%= user.firstname %>
                     </p>
-                    <p>Nom : <%= user.lastname %>
+                    <p>Last Name : <%= user.lastname %>
                     </p>
                     <p>Email : <%= user.email %>
                     </p>
@@ -60,8 +60,8 @@
                             <%= user.cv %>
                         </a>
                     </p>
-                    <h2><a href="/update-profile">Update Profile</a></h2>
-                    <h2><a href="/upload">Add Picture</a></h2>
+                    <h2 class="one"><a href="/update-profile">Update Profile</a></h2>
+                    <h2 class="two"><a href="/upload">Add Picture</a></h2>
                     <button class="delete">Delete profile</button>
                 </section>
                 <% } %>
