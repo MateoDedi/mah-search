@@ -444,6 +444,26 @@ button.update {
   color: #fff;
 }
 
+h2.jobTitle {
+  margin: auto;
+}
+
+h3.company {
+  margin: auto;
+}
+
+p.statusJob {
+  margin: auto;
+}
+
+a.edit{
+  margin: auto;
+}
+
+button.delete{
+  margin: auto;
+}
+
 ::-webkit-scrollbar {
   width: 15px;
 }
