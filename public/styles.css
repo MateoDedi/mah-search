@@ -383,11 +383,11 @@ section>.jobTitle,
 .comments,
 a.goBack,
 a.edit {
-  margin-top: 1rem;
+  margin-top: 10px;
 }
 
 h3.company {
-  margin-top: 0;
+  /* margin-top: 0; */
 }
 
 section a.goBack {
