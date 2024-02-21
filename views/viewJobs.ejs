@@ -44,20 +44,20 @@
         <% if ((!filterOrigin || job.origin.includes(filterOrigin)) && (!filterStatus ||
           job.statusJob.includes(filterStatus))) { %>
           <li class="job">
-            <h2>
-              <a href="/job/<%= job._id %>">
+            <h2 class="jobTitle">
+              <a href="/job/<%= job._id %>" >
                 <%= job.jobTitle %>
               </a>
             </h2>
             </a>
-            <h3>
+            <h3 class="company">
               <%= job.company %>
             </h3>
             
             <!-- <p>
               <%= job.Address %>
             </p> -->
-            <p>
+            <p class="statusJob">
               <%= job.statusJob %>
             </p>
             <a class="edit" href="/job/update/<%= job._id %>">Edit</a>

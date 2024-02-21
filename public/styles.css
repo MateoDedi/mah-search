@@ -330,6 +330,15 @@ li.job {
   align-items: center;
   max-width: 60%;
   overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.jobTitle, .company, .statusJob, .edit, .delete {
+  /* You may need to adjust this as per your design */
+  flex: 1 0 auto;
 }
 
 form a {
