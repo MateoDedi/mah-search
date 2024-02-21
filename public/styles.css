@@ -333,7 +333,6 @@ li.job {
 
 }
 
-
 form a {
   background: #4c3fff;
   color: #fff;
@@ -385,6 +384,10 @@ section>.jobTitle,
 a.goBack,
 a.edit {
   margin-top: 1rem;
+}
+
+h3.company {
+  margin-top: 0;
 }
 
 section a.goBack {
